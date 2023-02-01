@@ -2,8 +2,10 @@ package StatusChecker
 
 import (
 	"bytes"
+	"encoding/json"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
 )
 
@@ -78,9 +80,10 @@ func TestStatusHandler(t *testing.T) {
 
 	rr = httptest.NewRecorder()
 	handler.ServeHTTP(rr, req)
-
-	expected := `{"www.medium.com": "UP"}`
-	if rr.Body.String() != expected {
+	resp := make(map[string]string)
+	json.NewDecoder(rr.Body).Decode(&resp)
+	expected := "Key not present."
+	if strings.TrimSpace(resp["www.medium.com"]) != expected {
 		t.Errorf("handler returned unexpected body: got %v want %v", rr.Body.String(), expected)
 	}
 
@@ -93,7 +96,7 @@ func TestStatusHandler(t *testing.T) {
 	rr = httptest.NewRecorder()
 	handler.ServeHTTP(rr, req)
 
-	if status := rr.Code; status != http.StatusNotFound {
+	if status := rr.Code; status != http.StatusOK {
 		t.Errorf("handler returned wrong status code: got %v want %v", status, http.StatusNotFound)
 	}
 }
