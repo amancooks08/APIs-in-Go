@@ -7,6 +7,6 @@ import (
 )
 
 func InitRouter(dp *dependencies) {
-	http.HandleFunc("/submit", StatusChecker.SubmitHandler(dp.httpchecker))
-	http.HandleFunc("/status", StatusChecker.StatusHandler(dp.httpchecker))
+	http.HandleFunc("/POST/websites", StatusChecker.SubmitHandler(dp.httpchecker))
+	http.HandleFunc("/GET/websites", StatusChecker.StatusHandler(dp.httpchecker))
 }
