@@ -20,7 +20,7 @@ func (w Website) CheckStatus(ctx context.Context, url string) (status string, er
 	if _, ok := websitesMap[url]; !ok {
 		return "Key not present.", errors.New("Website Not Found")
 	}
-	
+
 	return websitesMap[url].Status, nil
 }
 
