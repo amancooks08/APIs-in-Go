@@ -22,7 +22,7 @@ func TestSubmitHandler(t *testing.T) {
 		if status := rr.Code; status != http.StatusMethodNotAllowed {
 			t.Errorf("Handler returned wrong status code: got %v want %v", status, http.StatusMethodNotAllowed)
 		}
-	})	
+	})
 	// Test if the handler returns a "OK" status for a POST request
 	t.Run("Test if the handler returns a \"OK\" status for a POST request", func(t *testing.T) {
 		var jsonStr []byte
@@ -41,7 +41,7 @@ func TestSubmitHandler(t *testing.T) {
 		if status := rr.Code; status != http.StatusOK {
 			t.Errorf("handler returned wrong status code: got %v want %v", status, http.StatusOK)
 		}
-	})	
+	})
 	// Test if the JSON payload from the POST request body is properly decoded and stored in the "websitesMap"
 	t.Run("Test if the JSON payload from the POST request body is properly decoded and stored in the \"websitesMap\"", func(t *testing.T) {
 		for website := range websitesMap {
@@ -105,11 +105,12 @@ func TestStatusHandler(t *testing.T) {
 		}
 
 		rr := httptest.NewRecorder()
-		handler:= http.HandlerFunc(StatusHandler(NewFunc()))
+		handler := http.HandlerFunc(StatusHandler(NewFunc()))
 		handler.ServeHTTP(rr, req)
 
 		if status := rr.Code; status != http.StatusOK {
 			t.Errorf("handler returned wrong status code: got %v want %v", status, http.StatusNotFound)
 		}
 	})
+
 }
